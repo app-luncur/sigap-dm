@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#12372A">
+  <title>SIGAP-DM Dashboard</title>
+  <link rel="icon" href="../icons/icon-192.png">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <!-- ===== Masuk ===== -->
+  <section id="login" class="login">
+    <form id="login-form" class="login-card" autocomplete="off">
+      <img src="../icons/icon-192.png" width="64" height="64" alt="">
+      <h1>SIGAP-DM Dashboard</h1>
+      <p class="sub">Khusus tenaga kesehatan dan peneliti.</p>
+      <label>Nama pengguna<input name="username" required autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Kata sandi<input name="password" type="password" required autocomplete="current-password"></label>
+      <button class="btn gold" type="submit">Masuk</button>
+      <p id="login-msg" class="msg" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- ===== Aplikasi ===== -->
+  <div id="app" hidden>
+    <header class="bar">
+      <div class="brand"><img src="../icons/icon-192.png" width="32" height="32" alt=""><b>SIGAP-DM</b><span>Dashboard</span></div>
+      <div class="bar-r">
+        <span id="who" class="who"></span>
+        <span id="updated" class="updated"></span>
+        <button class="btn sm" id="btn-refresh" type="button">Muat ulang</button>
+        <button class="btn sm" id="btn-csv-all" type="button">Ekspor CSV semua</button>
+        <button class="btn sm" id="btn-logout" type="button">Keluar</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="kpis" class="kpis" aria-label="Ringkasan kohort"></section>
+
+      <section class="toolbar">
+        <label class="search"><span class="sr">Cari pasien</span><input id="q" type="search" placeholder="Cari nama atau ID pasien"></label>
+        <label class="sel"><span class="sr">Filter</span>
+          <select id="flt">
+            <option value="all">Semua pasien</option>
+            <option value="alert">Perlu perhatian</option>
+            <option value="rendah">Gula rendah (7 hari)</option>
+            <option value="tinggi">Gula sangat tinggi (7 hari)</option>
+            <option value="idle">Tidak aktif ≥ 3 hari</option>
+            <option value="patuh">Kepatuhan obat &lt; 60%</option>
+          </select>
+        </label>
+        <span id="count" class="count"></span>
+      </section>
+
+      <div class="tablewrap">
+        <table id="tbl">
+          <thead><tr id="thead"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <p id="empty" class="empty" hidden></p>
+      </div>
+      <p class="foot">Aturan peringatan: gula &lt; 70 atau ≥ 300 mg/dL dalam 7 hari; rata-rata gula 7 hari ≥ 180; tekanan darah terakhir ≥ 140/90; tidak ada catatan ≥ 3 hari; kepatuhan obat 7 hari &lt; 60%. Alat bantu pemantauan, bukan pengganti penilaian klinis.</p>
+    </main>
+
+    <div id="backdrop" class="backdrop" hidden></div>
+    <aside id="detail" class="drawer" hidden aria-label="Detail pasien"></aside>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="../js/config.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
